@@ -1,11 +1,9 @@
 import logging
 from datetime import datetime
 from aiogram import Bot, Dispatcher, types
-from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.utils import executor
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ParseMode
 import aiohttp
-import asyncio
 
 # ========== ТОКЕНЫ ПРЯМО В КОДЕ ==========
 BOT_TOKEN = "8628470329:AAGNu__7pUBGbxo5UoRehztxrxHqsNrayFM"
@@ -18,7 +16,6 @@ logging.basicConfig(level=logging.INFO)
 # Инициализация бота
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
-dp.middleware.setup(LoggingMiddleware())
 
 # Клавиатура с одной кнопкой
 def get_keyboard():
@@ -71,8 +68,7 @@ async def cmd_help(message: types.Message):
     help_text = (
         "🔍 <b>Как пользоваться:</b>\n\n"
         "1. Отправь название города\n"
-        "2. Нажми кнопку \"🌤 Узнать погоду\"\n"
-        "3. Или используй команду /weather Москва"
+        "2. Нажми кнопку \"🌤 Узнать погоду\""
     )
     await message.answer(help_text, parse_mode=ParseMode.HTML)
 
@@ -122,5 +118,5 @@ async def send_weather(message: types.Message, city: str):
 
 # Запуск бота
 if __name__ == '__main__':
-    logging.info("Бот запущен!")
+    logging.info("Бот запускается...")
     executor.start_polling(dp, skip_updates=True)
